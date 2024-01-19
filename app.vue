@@ -3,7 +3,13 @@
 
     <q-header elevated class="bg-blue-6 text-white">
       <q-toolbar>
-        <q-btn dense flat round icon="menu" @click="toggleDrawer" />
+        <q-btn
+          dense
+          flat
+          round
+          icon="menu"
+          @click="toggleDrawer"
+        />
 
         <q-toolbar-title>
           <q-avatar square>
@@ -14,17 +20,18 @@
       </q-toolbar>
     </q-header>
 
-    <NoteDrawer v-model:drawer-switch="isDrawerOpen" />
+    <NoteDrawer
+      v-model:drawer-switch="isDrawerOpen"
+      @close-drawer="((eventValue: boolean) => isDrawerOpen = eventValue)"
+    />
 
   </q-layout>
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue';
-
   const isDrawerOpen = ref<boolean>(false);
 
-  const toggleDrawer = () => {
+  const toggleDrawer = (): void => {
     isDrawerOpen.value = !isDrawerOpen.value
   };
 </script>
