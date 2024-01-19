@@ -9,6 +9,7 @@
         round
         color="grey-5"
         icon="close"
+        @click="handleDrawerClosage"
       />
     </div>
     <div class="col absolute-center text-center">
@@ -32,6 +33,7 @@
         label="+ Criar anotação"
         no-caps
         class="q-mt-md"
+        @click="openCreateNote"
       />
     </div>
   </q-drawer>
@@ -39,6 +41,20 @@
 
 <script setup lang="ts">
   const drawerSwitch = defineModel<boolean>('drawerSwitch');
+  const isCreateNoteOpen = ref<boolean>(false);
+
+  const emits = defineEmits<{
+    closeDrawer: [value: boolean],
+  }>();
+
+  const handleDrawerClosage = (): void => {
+    emits('closeDrawer', false);
+  };
+
+  const openCreateNote = (): void => {
+    isCreateNoteOpen.value = true;
+    console.log('Abriu');
+  };
 </script>
 
 <style>
