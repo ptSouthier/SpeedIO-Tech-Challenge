@@ -1,7 +1,7 @@
 <template>
   <q-layout view="hHh lpR fFf">
 
-    <q-header elevated class="bg-primary text-white">
+    <q-header elevated class="bg-blue-6 text-white">
       <q-toolbar>
         <q-btn dense flat round icon="menu" @click="toggleDrawer" />
 
