@@ -22,7 +22,7 @@
 <script setup lang="ts">
   import { ref } from 'vue';
 
-  const isDrawerOpen = ref(false);
+  const isDrawerOpen = ref<boolean>(false);
 
   const toggleDrawer = () => {
     isDrawerOpen.value = !isDrawerOpen.value
