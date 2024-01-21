@@ -10,7 +10,7 @@
         round
         color="grey-5"
         icon="close"
-        @click="handleDrawerClosage"
+        @click="(() => emits('closeDrawer', false))"
       />
     </div>
 
@@ -41,10 +41,6 @@
   const emits = defineEmits<{
     closeDrawer: [value: boolean],
   }>();
-
-  const handleDrawerClosage = (): void => {
-    emits('closeDrawer', false);
-  };
 </script>
 
 <style>
