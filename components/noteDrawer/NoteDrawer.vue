@@ -27,16 +27,11 @@
 </template>
 
 <script setup lang="ts">
+  import type { Note } from './types';
+
   const drawerController = defineModel<boolean>('drawerSwitch');
   const isCreateNoteOpen = ref<boolean>(false);
   const noteList = ref<Array<Note>>([]);
-  
-  interface Note {
-    description: string,
-    businessPotential: number,
-    category: Array<string>,
-    reminder: Date,
-  }
 
   const emits = defineEmits<{
     closeDrawer: [value: boolean],
