@@ -1,7 +1,7 @@
 <template>
   <q-drawer show-if-above v-model="drawerController" side="left" behavior="desktop" bordered class="note-drawer-bg column">
 
-    <div class="row items-start q-mt-md">
+    <div class="row items-start q-mt-md" style="height: 2.5rem;">
       <p class="col-10 text-h6 text-bold text-grey-7 q-pl-md">
         Anotações
       </p>
