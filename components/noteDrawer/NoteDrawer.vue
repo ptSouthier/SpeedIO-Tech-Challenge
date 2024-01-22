@@ -9,7 +9,7 @@
         flat
         round
         color="grey-5"
-        icon="close"
+        icon="sym_o_close"
         @click="(() => emits('closeDrawer', false))"
       />
     </div>
