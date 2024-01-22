@@ -21,6 +21,7 @@
 
     <CreateNote
       v-if="isCreateNoteOpen == true"
+      @discard-note-creation="((eventValue: boolean) => {isCreateNoteOpen = eventValue})"
     />
 
   </q-drawer>
