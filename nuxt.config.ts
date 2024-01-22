@@ -10,7 +10,9 @@ export default defineNuxtConfig({
   modules: [
     'nuxt-quasar-ui',
   ],
-  quasar: { },
+  quasar: {
+    iconSet: 'material-symbols-outlined',
+  },
   typescript: {
     typeCheck: true
   },
