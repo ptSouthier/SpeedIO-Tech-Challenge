@@ -1,9 +1,9 @@
 <template>
   <div class="col absolute-center text-center">
     <q-icon
-      name="attach_file"
+      name="sym_o_attach_file"
       size="3.13rem"
-      class="text-grey-6 rotate-225 q-mb-md"
+      class="text-grey-6 rotate-225 q-mb-sm"
     />
 
     <p class="text-h6 text-bold text-blue-6 q-mb-none">
