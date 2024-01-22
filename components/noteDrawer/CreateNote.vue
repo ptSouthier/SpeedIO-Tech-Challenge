@@ -113,17 +113,7 @@
 
 <script setup lang="ts">
   import type { Note } from './types';
-
-  const getTodayDateFormatted = (): string => {
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = (today.getMonth() + 1).toString().padStart(2, '0');
-    const day = today.getDate().toString().padStart(2, '0');
-
-    return `${year}/${month}/${day}`;
-  }
-
-  const today = getTodayDateFormatted();
+  import { getTodayDateData } from '@/utils/getTodayDateData';
 
   const note = ref<Note>({
     description: '',
@@ -137,6 +127,9 @@
   }>();
 
   const dateSelectorOptions = (date: string) => {
+    const { day, month, year } = getTodayDateData();
+    const today = `${year}/${month}/${day}`;
+    
     return date >= today;
   }
 
