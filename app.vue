@@ -7,7 +7,7 @@
           dense
           flat
           round
-          icon="menu"
+          icon="sym_o_menu"
           @click="toggleDrawer"
         />
 
