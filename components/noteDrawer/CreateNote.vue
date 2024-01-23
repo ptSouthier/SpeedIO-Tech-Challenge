@@ -123,6 +123,7 @@
 
   const emits = defineEmits<{
     discardNoteCreation: [value: boolean],
+    createNewNote: [value: Note],
   }>();
 
   const dateSelectorOptions = (date: string) => {
@@ -133,7 +134,7 @@
   }
 
   const handleSubmit = (): void => {
-    console.log('Submit');
+    emits('createNewNote', note.value);
   };
 
   const handleDiscard = (): void => {
