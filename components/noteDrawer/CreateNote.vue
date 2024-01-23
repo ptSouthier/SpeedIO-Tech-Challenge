@@ -13,7 +13,7 @@
           outlined
           dense
           v-model="note.description"
-          :rules="[description => !!description || 'Descreva sua anotação!']"
+          :rules="[(description: string) => !!description || 'Descreva sua anotação!']"
           placeholder="Descrição*"
           type="textarea"
           input-class="q-px-sm"
@@ -34,7 +34,6 @@
             class="q-mt-sm"
           />
         </div>
-
 
         <div class="q-mt-md">
           <span class="text-grey-6 text-bold text-caption">Categorização</span>
@@ -58,7 +57,7 @@
             outlined
             readonly
             v-model="note.reminder"
-            :rules="[reminder => !!reminder || 'Selecione uma data!']"
+            :rules="[(reminder: string) => !!reminder || 'Selecione uma data!']"
             placeholder="Selecione uma data"
             bg-color="white"
             class="q-mt-sm"
