@@ -111,8 +111,7 @@
 </template>
 
 <script setup lang="ts">
-  import type { Note } from './types';
-  import { getTodayDateData } from '@/utils/getTodayDateData';
+  import type { Note } from './NoteDrawer.types';
 
   const note = ref<Note>({
     description: '',
