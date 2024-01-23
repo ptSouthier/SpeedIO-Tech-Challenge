@@ -22,7 +22,12 @@
     <CreateNote
       v-if="isCreateNoteOpen == true"
       @discard-note-creation="((eventValue: boolean) => {isCreateNoteOpen = eventValue})"
+      @create-new-note="handleNoteCreation"
     />
+
+    <div v-if="noteList.length >= 1 && !isCreateNoteOpen">
+      Deu certo
+    </div>
 
   </q-drawer>
 </template>
@@ -37,6 +42,11 @@
   const emits = defineEmits<{
     closeDrawer: [value: boolean],
   }>();
+
+  const handleNoteCreation = (newNote: Note): void => {
+    noteList.value.push(newNote);
+    isCreateNoteOpen.value = false;
+  };
 </script>
 
 <style>
