@@ -1,6 +1,6 @@
 import IndexedDB from '@/server/indexedDB/indexedDB';
 import type { OperationResult } from '@/server/indexedDB/types';
-import type { Note } from '@/components/noteDrawer/types';
+import type { Note } from '@/components/noteDrawer/NoteDrawer.types';
 
 const indexedDBService = new IndexedDB('IndexDB', 1, ['notes']);
 
