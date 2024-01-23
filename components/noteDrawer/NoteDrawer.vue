@@ -33,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-  import type { Note } from './types';
+  import type { Note } from './NoteDrawer.types';
 
   const drawerController = defineModel<boolean>('drawerSwitch');
   const isCreateNoteOpen = ref<boolean>(false);
