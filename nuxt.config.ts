@@ -12,6 +12,12 @@ export default defineNuxtConfig({
   ],
   quasar: {
     iconSet: 'material-symbols-outlined',
+    extras: {
+      animations: 'all',
+    },
+    plugins: [
+      'Loading',
+    ],
   },
   typescript: {
     typeCheck: true
