@@ -20,6 +20,7 @@
       label="+ Criar anotação"
       no-caps
       class="q-mt-md"
+      style="font-weight: 400;"
       @click="openCreateNote"
     />
   </div>
