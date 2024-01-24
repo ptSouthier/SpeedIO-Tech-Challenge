@@ -3,8 +3,15 @@
     <q-scroll-area class="fit">
       <q-list padding class="q-gutter-x-md q-gutter-y-sm" style="max-width: 17.5rem;">
 
-        <q-item v-for="note in notesList" :key="note.id" class="bg-white text-left q-pa-sm" style="border-radius: 0.5rem;" clickable v-ripple>
-          <q-item-section top avatar class="col-2 q-px-none">
+        <q-item
+          v-for="note in notesList"
+          :key="note.id"
+          class="bg-white text-left q-pa-sm"
+          style="border-radius: 0.5rem;"
+          clickable
+          v-ripple
+        >
+          <q-item-section top avatar class="col-2 q-px-none" @click="handleSelectNote(note)">
             <q-icon
               name="sym_o_attach_file"
               size="1.3rem"
@@ -12,7 +19,7 @@
             />
           </q-item-section>
 
-          <q-item-section class="col-7" style="font-size: smaller;">
+          <q-item-section class="col-7" style="font-size: smaller;" @click="handleSelectNote(note)">
             <q-item-label class="text-bold text-grey-8" lines="1" style="text-decoration: underline;">
               {{ note.description }}
             </q-item-label>
@@ -52,6 +59,7 @@
 
   const emits = defineEmits<{
     noteToDelete: [value: number],
+    selectedNote: [value: Note],
   }>();
 
   const openCreateNote = (): void => {
@@ -63,6 +71,14 @@
       emits('noteToDelete', noteId);
     } else {
       console.error('Problem with the ID of selected note.');
-    }
+    };
+  };
+
+  const handleSelectNote = (noteData: Note): void => {
+    if (noteData !== undefined) {
+      emits('selectedNote', noteData);
+    } else {
+      console.error('Problem with the ID of selected note.');
+    };
   };
 </script>
