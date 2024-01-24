@@ -7,7 +7,7 @@
       style="height: 100%;"
     >
 
-      <div>
+      <q-scroll-area class="fit q-ma-sm q-pa-sm q-pt-md">
         <q-input
           rounded
           outlined
@@ -29,6 +29,7 @@
             prefix="R$"
             type="number"
             min="0"
+            step=".01"
             v-model="note.businessPotential"
             bg-color="white"
             class="q-mt-sm"
@@ -82,9 +83,9 @@
             </template>
           </q-input>
         </div>
-      </div>
+      </q-scroll-area>
 
-      <div class="row no-wrap items-center justify-around q-pb-sm">
+      <div class="row no-wrap items-center justify-around q-ma-md fixed-bottom">
         <q-btn
           flat
           round
@@ -122,7 +123,7 @@
 
   const emits = defineEmits<{
     discardNoteCreation: [value: boolean],
-    createNewNote: [value: Note],
+    createdNewNote: [value: Note],
   }>();
 
   const dateSelectorOptions = (date: string) => {
@@ -132,8 +133,12 @@
     return date >= today;
   }
 
-  const handleSubmit = (): void => {
-    emits('createNewNote', note.value);
+  const handleSubmit = async (): Promise<void> => {
+    const addNoteToIndexDB = await useIndexDB.addNote(note.value);
+
+    if (addNoteToIndexDB.status === HTTP_STATUS_CREATED) {
+      emits('createdNewNote', addNoteToIndexDB.data);
+    }
   };
 
   const handleDiscard = (): void => {
