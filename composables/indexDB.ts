@@ -4,7 +4,7 @@ import type { Note } from '@/components/noteDrawer/NoteDrawer.types';
 
 const indexedDBService = new IndexedDB('IndexDB', 1, ['notes']);
 
-export const IndexDB = {
+export const useIndexDB = {
   async getAllNotes(): Promise<OperationResult> {
     try {
       const result = await indexedDBService.getAllNotes('notes');
