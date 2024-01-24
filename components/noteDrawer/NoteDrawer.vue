@@ -42,6 +42,7 @@
         v-model:notes-list="notesList"
         v-model:create-note="isCreateNoteOpen"
         @note-to-delete="handleIntentToDeleteNote"
+        @selected-note="((eventData: Note) => { emits('selectedNote', eventData) })"
       />
     </transition-group>
 
@@ -82,6 +83,7 @@
 
   const emits = defineEmits<{
     closeDrawer: [value: boolean],
+    selectedNote: [value: Note],
   }>();
 
   const handleNoteCreated = async (): Promise<void> => {
