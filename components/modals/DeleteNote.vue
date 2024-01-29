@@ -18,7 +18,7 @@
       <q-separator style="min-width: 100%;" />
 
       <q-card-section class="row items-center">
-        <span class="text-grey-8 q-mx-md q-mb-lg">
+        <span class="text-grey-7 q-mx-sm q-mb-lg">
           Você está prestes a deletar uma anotação e esta ação não poderá ser desfeita.
           <br>Tem certeza que deseja excluí-la?
         </span>
