@@ -49,33 +49,28 @@ export default class IndexedDB {
     };
   };
 
-  public addNote(note: Note, store: string): Promise<OperationResult> {
+  public addData(data: any, store: string): Promise<OperationResult> {
     return new Promise((resolve, reject) => {
       if (this.db) {
         const transaction = this.db.transaction([store], "readwrite");
         const objectStore = transaction.objectStore(store);
-        
-        const noteToStore = {
-          ...note,
-          category: JSON.stringify(note.category),
-        };
 
-        const request = objectStore.add(noteToStore);
+        const request = objectStore.add(data);
 
         request.onsuccess = (event) => {
           resolve({
             status: HTTP_STATUS_CREATED,
-            message: "Note created with success!",
-            data: note,
+            message: `Data created with success into "${store}" store!`,
+            data,
             event,
           });
         };
 
         request.onerror = (event) => {
-          console.error("Error adding note to IndexedDB: ", event);
+          console.error("Error adding data to IndexedDB: ", event);
           reject({
             status: HTTP_STATUS_INTERNAL_SERVER_ERROR,
-            message: "Error adding note to IndexedDB!",
+            message: "Error adding data to IndexedDB!",
             event,
           });
         };
