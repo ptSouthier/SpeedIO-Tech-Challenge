@@ -35,7 +35,12 @@ export const useIndexDB = {
 
   async addNote(note: Note): Promise<OperationResult> {
     try {
-      const result = await indexedDBService.addNote(note, 'notes');
+      const noteToStore = {
+        ...note,
+        category: JSON.stringify(note.category),
+      };
+
+      const result = await indexedDBService.addData(noteToStore, 'notes');
       return result;
     } catch (error: any) {
       return error as OperationResult;
