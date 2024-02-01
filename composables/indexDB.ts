@@ -26,7 +26,7 @@ export const useIndexDB = {
 
   async getNoteById(noteId: number): Promise<OperationResult> {
     try {
-      const result = await indexedDBService.getNoteById(noteId, 'notes');
+      const result = await indexedDBService.getDataById(noteId, 'notes');
       return result;
     } catch (error: any) {
       return error as OperationResult;
