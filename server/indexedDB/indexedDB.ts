@@ -151,12 +151,12 @@ export default class IndexedDB {
     });
   };
 
-  public getNoteById(noteId: number, store: string): Promise<OperationResult> {
+  public getDataById(dataId: number, store: string): Promise<OperationResult> {
     return new Promise((resolve, reject) => {
       if (this.db) {
         const transaction = this.db.transaction([store], "readonly");
         const objectStore = transaction.objectStore(store);
-        const request = objectStore.get(noteId);
+        const request = objectStore.get(dataId);
 
         request.onsuccess = (event) => {
           const result = (event.target as IDBRequest).result;
@@ -165,16 +165,16 @@ export default class IndexedDB {
 
           resolve({
             status: HTTP_STATUS_OK,
-            message: "Note retrieved with success!",
+            message: "Data retrieved with success!",
             data: result,
           });
         };
 
         request.onerror = (event) => {
-          console.error("Error getting note from IndexedDB:", event);
+          console.error("Error getting data from IndexedDB:", event);
           reject({
             status: HTTP_STATUS_INTERNAL_SERVER_ERROR,
-            message: "Error getting note from IndexedDB",
+            message: "Error getting data from IndexedDB",
             event,
           });
         };
