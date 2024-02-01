@@ -1,4 +1,3 @@
-import type { Note } from '@/components/noteDrawer/NoteDrawer.types';
 import type { OperationResult } from './types';
 import {
   HTTP_STATUS_OK,
