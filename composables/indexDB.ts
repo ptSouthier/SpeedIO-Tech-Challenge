@@ -49,7 +49,7 @@ export const useIndexDB = {
 
   async deleteNote(noteId: number): Promise<OperationResult> {
     try {
-      const result = await indexedDBService.deleteNote(noteId, 'notes');
+      const result = await indexedDBService.deleteData(noteId, 'notes');
       return result;
     } catch (error: any) {
       return error as OperationResult;
