@@ -116,40 +116,29 @@ export default class IndexedDB {
     });
   };
 
-  public getAllNotes(store: string): Promise<OperationResult> {
+  public getAllData(store: string): Promise<OperationResult> {
     return new Promise((resolve, reject) => {
       if (this.db) {
         const transaction = this.db.transaction([store], "readonly");
         const objectStore = transaction.objectStore(store);
-        const cursorRequest = objectStore.openCursor();
+        const getAllRequest = objectStore.getAll();
 
-        const results: any[] = [];
+        getAllRequest.onsuccess = (event) => {
+          const results = (event.target as IDBRequest).result;
 
-        cursorRequest.onsuccess = (event) => {
-          const cursor = (event.target as IDBRequest).result;
-
-          if (cursor) {
-            const note = cursor.value;
-
-            note.category = JSON.parse(note.category);
-
-            results.push(note);
-            cursor.continue();
-          } else {
-            resolve({
-              status: HTTP_STATUS_OK,
-              message: "Notes retrieved with success!",
-              data: results,
-              event,
-            });
-          };
+          resolve({
+            status: HTTP_STATUS_OK,
+            message: "Data retrieved with success!",
+            data: results,
+            event,
+          });
         };
 
-        cursorRequest.onerror = (event) => {
-          console.error("Error getting notes from IndexedDB:", event);
+        getAllRequest.onerror = (event) => {
+          console.error("Error getting data from IndexedDB:", event);
           reject({
             status: HTTP_STATUS_INTERNAL_SERVER_ERROR,
-            message: "Error getting notes from IndexedDB",
+            message: "Error getting data from IndexedDB",
             event,
           });
         };
