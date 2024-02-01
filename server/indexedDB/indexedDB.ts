@@ -83,27 +83,27 @@ export default class IndexedDB {
     });
   };
 
-  public deleteNote(noteId: number, store: string): Promise<OperationResult> {
+  public deleteData(dataId: number, store: string): Promise<OperationResult> {
     return new Promise((resolve, reject) => {
       if (this.db) {
         const transaction = this.db.transaction([store], "readwrite");
         const objectStore = transaction.objectStore(store);
 
-        const request = objectStore.delete(noteId);
+        const request = objectStore.delete(dataId);
 
         request.onsuccess = (event) => {
           resolve({
             status: HTTP_STATUS_NO_CONTENT,
-            message: `Note with id: ${noteId} was deleted with success!`,
+            message: `Data with id: ${dataId} was deleted with success!`,
             event,
           });
         };
 
         request.onerror = (event) => {
-          console.error("Error deleting note from IndexedDB:", event);
+          console.error("Error deleting data from IndexedDB:", event);
           reject({
             status: HTTP_STATUS_INTERNAL_SERVER_ERROR,
-            message: "Error deleting note from IndexedDB",
+            message: "Error deleting data from IndexedDB",
             event,
           });
         };
