@@ -61,10 +61,10 @@
   const notesList = defineModel<Array<Note>>('notesList');
   const creatingNote = defineModel<boolean>('createNote');
 
-  const emits = defineEmits<{
-    noteToDelete: [value: number],
-    selectedNote: [value: Note],
-  }>();
+  const selectedNoteData = useSelectedNoteData();
+  const noteToDelete = useNoteToDelete();
+
+  const emits = defineEmits(['deleteNote']);
 
   const openCreateNote = (): void => {
     creatingNote.value = true;
@@ -72,7 +72,8 @@
 
   const handleNoteDelete = (noteId: number | undefined): void => {
     if (noteId !== undefined) {
-      emits('noteToDelete', noteId);
+     noteToDelete.value = noteId;
+     emits('deleteNote');
     } else {
       console.error('Problem with the ID of selected note.');
     };
@@ -80,7 +81,7 @@
 
   const handleSelectNote = (noteData: Note): void => {
     if (noteData !== undefined) {
-      emits('selectedNote', noteData);
+      selectedNoteData.value = noteData;    
     } else {
       console.error('Problem with the ID of selected note.');
     };
