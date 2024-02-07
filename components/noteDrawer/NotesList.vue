@@ -9,9 +9,13 @@
           class="bg-white text-left q-pa-sm"
           style="border-radius: 0.5rem;"
           clickable
+          @click="handleSelectNote(note)"
+          :focused="note.id === selectedNoteData.id"
+          :active="note.id === selectedNoteData.id"
+          active-class="bg-light-blue-2"
           v-ripple
         >
-          <q-item-section top avatar class="col-2 q-px-none" @click="handleSelectNote(note)">
+          <q-item-section top avatar class="col-2 q-px-none">
             <q-icon
               name="sym_o_attach_file"
               size="1.3rem"
@@ -19,7 +23,7 @@
             />
           </q-item-section>
 
-          <q-item-section class="col-7" style="font-size: smaller;" @click="handleSelectNote(note)">
+          <q-item-section class="col-7" style="font-size: smaller;">
             <q-item-label class="text-bold text-grey-8" lines="1" style="text-decoration: underline;">
               {{ note.description }}
             </q-item-label>
@@ -30,7 +34,7 @@
           </q-item-section>
 
           <q-item-section side top class="col-3">
-            <q-btn flat round color="red" size="0.8rem" @click="handleNoteDelete(note.id)">
+            <q-btn flat round color="red" size="0.8rem" @click.stop="handleNoteDelete(note.id)">
               <q-icon name="sym_o_delete" style="font-size: 1.3rem; font-weight: 300;" />
             </q-btn>
           </q-item-section>
