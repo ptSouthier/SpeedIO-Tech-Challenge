@@ -7,3 +7,5 @@ export const useSelectedNoteData = () => useState<Note>('selectedNote', () => ({
   category: [],
   reminder: '',
 }));
+
+export const useNoteToDelete = () => useState<number | undefined>('noteToDelete', () => undefined);
