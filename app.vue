@@ -14,7 +14,9 @@
         <q-space />
 
         <q-avatar square>
-          <SpeedioMiniLogo />
+          <a href="https://speedio.com.br/" target="_blank">
+            <SpeedioMiniLogo />
+          </a>
         </q-avatar>
 
       </q-toolbar>
