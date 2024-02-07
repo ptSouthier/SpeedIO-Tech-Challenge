@@ -32,9 +32,7 @@
 </template>
 
 <script setup lang="ts">
-  import type { Note } from '../noteDrawer/NoteDrawer.types';
-
-  const selectedNote = defineModel<Note>('selectedNote');
+  const selectedNote = useSelectedNoteData();
   const openInsertTokenModal = ref<boolean>(false);
   const openPersistNotesModal = ref<boolean>(false);
 </script>
