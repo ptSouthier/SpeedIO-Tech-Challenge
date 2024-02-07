@@ -41,8 +41,7 @@
         v-if="notesList.length >= 1 && !isCreateNoteOpen"
         v-model:notes-list="notesList"
         v-model:create-note="isCreateNoteOpen"
-        @note-to-delete="handleIntentToDeleteNote"
-        @selected-note="((eventData: Note) => { emits('selectedNote', eventData) })"
+        @delete-note="handleIntentToDeleteNote"
       />
     </transition-group>
 
@@ -52,7 +51,6 @@
 
     <DeleteNote
       v-model:notes-list="notesList"
-      v-model:note-id="noteIdToBeDeleted"
       v-model:show-modal="openDeleteNoteModal"
       @close-modal="((eventValue: boolean): void => { openDeleteNoteModal = eventValue })"
     />
@@ -67,7 +65,6 @@
   const isLoading = ref<boolean>(false);
   const isCreateNoteOpen = ref<boolean>(false);
   const openDeleteNoteModal = ref<boolean>(false);
-  const noteIdToBeDeleted = ref<number>(0);
   const notesList = ref<Array<Note>>([]);
 
   isLoading.value = true;
@@ -83,7 +80,6 @@
 
   const emits = defineEmits<{
     closeDrawer: [value: boolean],
-    selectedNote: [value: Note],
   }>();
 
   const handleNoteCreated = async (): Promise<void> => {
@@ -92,8 +88,7 @@
     isCreateNoteOpen.value = false;
   };
 
-  const handleIntentToDeleteNote = (noteId: number): void => {
-    noteIdToBeDeleted.value = noteId;
+  const handleIntentToDeleteNote = (): void => {
     openDeleteNoteModal.value = true;
   };
 
