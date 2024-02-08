@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  database:
+    image: mongo
+    container_name: speedio_mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - speedio_mongodb_data:/data/db
+
+volumes:
+  speedio_mongodb_data:
