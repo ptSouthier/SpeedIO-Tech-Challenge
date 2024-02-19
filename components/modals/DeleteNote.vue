@@ -18,7 +18,7 @@
       <q-separator style="min-width: 100%;" />
 
       <q-card-section class="row items-center">
-        <span class="text-grey-8 q-mx-md q-mb-lg">
+        <span class="text-grey-7 q-mx-sm q-mb-lg">
           Você está prestes a deletar uma anotação e esta ação não poderá ser desfeita.
           <br>Tem certeza que deseja excluí-la?
         </span>
@@ -56,7 +56,8 @@
 
   const showModal = defineModel<boolean>('showModal');
   const notesList = defineModel<Array<Note>>('notesList');
-  const noteId = defineModel<number>('noteId');
+  
+  const noteToDelete = useNoteToDelete();
 
   const emits = defineEmits<{
     closeModal: [value: boolean],
@@ -65,11 +66,11 @@
   const handleNoteDeletion = async (): Promise<void> => {
     Loading.show();
 
-    if (noteId.value !== undefined) {
-      const deleteNoteData = await useIndexDB.deleteNote(noteId.value);
+    if (noteToDelete.value !== undefined) {
+      const deleteNoteData = await useIndexDB.deleteNote(noteToDelete.value);
       
       if (deleteNoteData.status === HTTP_STATUS_NO_CONTENT) {        
-        notesList.value = notesList.value?.filter((note: any) => note.id !== noteId.value);
+        notesList.value = notesList.value?.filter((note: any) => note.id !== noteToDelete.value);
         emits('closeModal', false);
       };
     };

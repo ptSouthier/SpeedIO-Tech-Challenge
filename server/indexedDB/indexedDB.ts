@@ -1,4 +1,3 @@
-import type { Note } from '@/components/noteDrawer/NoteDrawer.types';
 import type { OperationResult } from './types';
 import {
   HTTP_STATUS_OK,
@@ -49,33 +48,28 @@ export default class IndexedDB {
     };
   };
 
-  public addNote(note: Note, store: string): Promise<OperationResult> {
+  public addData(data: any, store: string): Promise<OperationResult> {
     return new Promise((resolve, reject) => {
       if (this.db) {
         const transaction = this.db.transaction([store], "readwrite");
         const objectStore = transaction.objectStore(store);
-        
-        const noteToStore = {
-          ...note,
-          category: JSON.stringify(note.category),
-        };
 
-        const request = objectStore.add(noteToStore);
+        const request = objectStore.add(data);
 
         request.onsuccess = (event) => {
           resolve({
             status: HTTP_STATUS_CREATED,
-            message: "Note created with success!",
-            data: note,
+            message: `Data created with success into "${store}" store!`,
+            data,
             event,
           });
         };
 
         request.onerror = (event) => {
-          console.error("Error adding note to IndexedDB: ", event);
+          console.error("Error adding data to IndexedDB: ", event);
           reject({
             status: HTTP_STATUS_INTERNAL_SERVER_ERROR,
-            message: "Error adding note to IndexedDB!",
+            message: "Error adding data to IndexedDB!",
             event,
           });
         };
@@ -88,27 +82,27 @@ export default class IndexedDB {
     });
   };
 
-  public deleteNote(noteId: number, store: string): Promise<OperationResult> {
+  public deleteData(dataId: number, store: string): Promise<OperationResult> {
     return new Promise((resolve, reject) => {
       if (this.db) {
         const transaction = this.db.transaction([store], "readwrite");
         const objectStore = transaction.objectStore(store);
 
-        const request = objectStore.delete(noteId);
+        const request = objectStore.delete(dataId);
 
         request.onsuccess = (event) => {
           resolve({
             status: HTTP_STATUS_NO_CONTENT,
-            message: `Note with id: ${noteId} was deleted with success!`,
+            message: `Data with id: ${dataId} was deleted with success!`,
             event,
           });
         };
 
         request.onerror = (event) => {
-          console.error("Error deleting note from IndexedDB:", event);
+          console.error("Error deleting data from IndexedDB:", event);
           reject({
             status: HTTP_STATUS_INTERNAL_SERVER_ERROR,
-            message: "Error deleting note from IndexedDB",
+            message: "Error deleting data from IndexedDB",
             event,
           });
         };
@@ -121,40 +115,29 @@ export default class IndexedDB {
     });
   };
 
-  public getAllNotes(store: string): Promise<OperationResult> {
+  public getAllData(store: string): Promise<OperationResult> {
     return new Promise((resolve, reject) => {
       if (this.db) {
         const transaction = this.db.transaction([store], "readonly");
         const objectStore = transaction.objectStore(store);
-        const cursorRequest = objectStore.openCursor();
+        const getAllRequest = objectStore.getAll();
 
-        const results: any[] = [];
+        getAllRequest.onsuccess = (event) => {
+          const results = (event.target as IDBRequest).result;
 
-        cursorRequest.onsuccess = (event) => {
-          const cursor = (event.target as IDBRequest).result;
-
-          if (cursor) {
-            const note = cursor.value;
-
-            note.category = JSON.parse(note.category);
-
-            results.push(note);
-            cursor.continue();
-          } else {
-            resolve({
-              status: HTTP_STATUS_OK,
-              message: "Notes retrieved with success!",
-              data: results,
-              event,
-            });
-          };
+          resolve({
+            status: HTTP_STATUS_OK,
+            message: "Data retrieved with success!",
+            data: results,
+            event,
+          });
         };
 
-        cursorRequest.onerror = (event) => {
-          console.error("Error getting notes from IndexedDB:", event);
+        getAllRequest.onerror = (event) => {
+          console.error("Error getting data from IndexedDB:", event);
           reject({
             status: HTTP_STATUS_INTERNAL_SERVER_ERROR,
-            message: "Error getting notes from IndexedDB",
+            message: "Error getting data from IndexedDB",
             event,
           });
         };
@@ -167,12 +150,12 @@ export default class IndexedDB {
     });
   };
 
-  public getNoteById(noteId: number, store: string): Promise<OperationResult> {
+  public getDataById(dataId: number, store: string): Promise<OperationResult> {
     return new Promise((resolve, reject) => {
       if (this.db) {
         const transaction = this.db.transaction([store], "readonly");
         const objectStore = transaction.objectStore(store);
-        const request = objectStore.get(noteId);
+        const request = objectStore.get(dataId);
 
         request.onsuccess = (event) => {
           const result = (event.target as IDBRequest).result;
@@ -181,16 +164,16 @@ export default class IndexedDB {
 
           resolve({
             status: HTTP_STATUS_OK,
-            message: "Note retrieved with success!",
+            message: "Data retrieved with success!",
             data: result,
           });
         };
 
         request.onerror = (event) => {
-          console.error("Error getting note from IndexedDB:", event);
+          console.error("Error getting data from IndexedDB:", event);
           reject({
             status: HTTP_STATUS_INTERNAL_SERVER_ERROR,
-            message: "Error getting note from IndexedDB",
+            message: "Error getting data from IndexedDB",
             event,
           });
         };

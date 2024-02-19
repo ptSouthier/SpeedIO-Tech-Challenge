@@ -7,7 +7,17 @@ const indexedDBService = new IndexedDB('IndexDB', 1, ['notes']);
 export const useIndexDB = {
   async getAllNotes(): Promise<OperationResult> {
     try {
-      const result = await indexedDBService.getAllNotes('notes');
+      const result = await indexedDBService.getAllData('notes');
+
+      if (result.status === HTTP_STATUS_OK) {
+        result.data.forEach((noteValue: any) => {
+          noteValue.category = JSON.parse(noteValue.category);
+        });
+      } else {
+        throw new Error(result.message);
+      }
+
+
       return result;
     } catch (error: any) {
       return error as OperationResult;
@@ -16,7 +26,7 @@ export const useIndexDB = {
 
   async getNoteById(noteId: number): Promise<OperationResult> {
     try {
-      const result = await indexedDBService.getNoteById(noteId, 'notes');
+      const result = await indexedDBService.getDataById(noteId, 'notes');
       return result;
     } catch (error: any) {
       return error as OperationResult;
@@ -25,7 +35,12 @@ export const useIndexDB = {
 
   async addNote(note: Note): Promise<OperationResult> {
     try {
-      const result = await indexedDBService.addNote(note, 'notes');
+      const noteToStore = {
+        ...note,
+        category: JSON.stringify(note.category),
+      };
+
+      const result = await indexedDBService.addData(noteToStore, 'notes');
       return result;
     } catch (error: any) {
       return error as OperationResult;
@@ -34,7 +49,7 @@ export const useIndexDB = {
 
   async deleteNote(noteId: number): Promise<OperationResult> {
     try {
-      const result = await indexedDBService.deleteNote(noteId, 'notes');
+      const result = await indexedDBService.deleteData(noteId, 'notes');
       return result;
     } catch (error: any) {
       return error as OperationResult;

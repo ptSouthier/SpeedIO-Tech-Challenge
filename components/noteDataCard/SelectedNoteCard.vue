@@ -1,5 +1,5 @@
 <template>
-  <div class="text-caption text-white text-right">
+  <div class="text-caption text-white text-right q-pr-sm q-mr-xs" style="font-size: x-small;">
     <q-icon name="sym_o_event" size="1rem" class="q-pb-xs" />
     Lembrete para {{ noteData?.reminder }}
   </div>
